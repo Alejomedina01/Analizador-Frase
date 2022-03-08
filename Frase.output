@@ -1,0 +1,196 @@
+Gramática
+
+    0 $accept: line $end
+
+    1 line: %empty
+    2     | line exp EOL
+
+    3 exp: ART SUB VER ADV ADJ
+    4    | SUB VER ART ADJ ADJ
+    5    | SUB VER PRE ADJ ADJ
+    6    | SUB VER ADV ART ADJ
+
+
+Terminales con las reglas donde aparecen
+
+    $end (0) 0
+    error (256)
+    PRE (258) 5
+    ART (259) 3 4 6
+    VER (260) 3 4 5 6
+    ADJ (261) 3 4 5 6
+    SUB (262) 3 4 5 6
+    ADV (263) 3 6
+    EOL (264) 2
+
+
+No terminales con las reglas donde aparecen
+
+    $accept (10)
+        on left: 0
+    line (11)
+        on left: 1 2
+        on right: 0 2
+    exp (12)
+        on left: 3 4 5 6
+        on right: 2
+
+
+Estado 0
+
+    0 $accept: . line $end
+
+    $default  reduce usando la regla 1 (line)
+
+    line  ir al estado 1
+
+
+Estado 1
+
+    0 $accept: line . $end
+    2 line: line . exp EOL
+
+    $end  desplazar e ir al estado 2
+    ART   desplazar e ir al estado 3
+    SUB   desplazar e ir al estado 4
+
+    exp  ir al estado 5
+
+
+Estado 2
+
+    0 $accept: line $end .
+
+    $default  aceptar
+
+
+Estado 3
+
+    3 exp: ART . SUB VER ADV ADJ
+
+    SUB  desplazar e ir al estado 6
+
+
+Estado 4
+
+    4 exp: SUB . VER ART ADJ ADJ
+    5    | SUB . VER PRE ADJ ADJ
+    6    | SUB . VER ADV ART ADJ
+
+    VER  desplazar e ir al estado 7
+
+
+Estado 5
+
+    2 line: line exp . EOL
+
+    EOL  desplazar e ir al estado 8
+
+
+Estado 6
+
+    3 exp: ART SUB . VER ADV ADJ
+
+    VER  desplazar e ir al estado 9
+
+
+Estado 7
+
+    4 exp: SUB VER . ART ADJ ADJ
+    5    | SUB VER . PRE ADJ ADJ
+    6    | SUB VER . ADV ART ADJ
+
+    PRE  desplazar e ir al estado 10
+    ART  desplazar e ir al estado 11
+    ADV  desplazar e ir al estado 12
+
+
+Estado 8
+
+    2 line: line exp EOL .
+
+    $default  reduce usando la regla 2 (line)
+
+
+Estado 9
+
+    3 exp: ART SUB VER . ADV ADJ
+
+    ADV  desplazar e ir al estado 13
+
+
+Estado 10
+
+    5 exp: SUB VER PRE . ADJ ADJ
+
+    ADJ  desplazar e ir al estado 14
+
+
+Estado 11
+
+    4 exp: SUB VER ART . ADJ ADJ
+
+    ADJ  desplazar e ir al estado 15
+
+
+Estado 12
+
+    6 exp: SUB VER ADV . ART ADJ
+
+    ART  desplazar e ir al estado 16
+
+
+Estado 13
+
+    3 exp: ART SUB VER ADV . ADJ
+
+    ADJ  desplazar e ir al estado 17
+
+
+Estado 14
+
+    5 exp: SUB VER PRE ADJ . ADJ
+
+    ADJ  desplazar e ir al estado 18
+
+
+Estado 15
+
+    4 exp: SUB VER ART ADJ . ADJ
+
+    ADJ  desplazar e ir al estado 19
+
+
+Estado 16
+
+    6 exp: SUB VER ADV ART . ADJ
+
+    ADJ  desplazar e ir al estado 20
+
+
+Estado 17
+
+    3 exp: ART SUB VER ADV ADJ .
+
+    $default  reduce usando la regla 3 (exp)
+
+
+Estado 18
+
+    5 exp: SUB VER PRE ADJ ADJ .
+
+    $default  reduce usando la regla 5 (exp)
+
+
+Estado 19
+
+    4 exp: SUB VER ART ADJ ADJ .
+
+    $default  reduce usando la regla 4 (exp)
+
+
+Estado 20
+
+    6 exp: SUB VER ADV ART ADJ .
+
+    $default  reduce usando la regla 6 (exp)
